@@ -66,7 +66,7 @@ namespace BD_to_EXCEL_form
             }
         }
         /// <summary>
-        /// Чтение файла *\aliases.txt, заполнение справочника 
+        /// Чтение файла *\aliases.txt, заполнение справочника c псевдонимами
         /// </summary>
         public async void Dict_read()
         {
@@ -188,6 +188,11 @@ namespace BD_to_EXCEL_form
                 DirectoryInfo di = Directory.CreateDirectory((Application.StartupPath) + @"\data");
             }
         }
+        /// <summary>
+        /// Получение заголовков
+        /// </summary>
+        /// <returns></returns>
+   
         private void read_csv(string sql)
         {
             Directory_data();
@@ -271,27 +276,69 @@ namespace BD_to_EXCEL_form
         }
         private void button6_Click(object sender, EventArgs e)
         {
-            //log(date());
+            string filePath = (Application.StartupPath) + @"\data\" + date().ToString() + ".xlsx";
+            
             Dict_update();
+            log("Проверка существования дирректории: " + (Application.StartupPath) + @"\data\");
             Directory_data();
-            Console.WriteLine("Открытие файла excel");
-            var excelappworkbook = new XLWorkbook(textBox3.Text);
+            log("Открытие файла excel");
+            
+            /*#region Create case
+            {
+                var workbook = new XLWorkbook();
+                var ws = workbook.Worksheets.Add("Delete red rows");
 
-            Console.WriteLine("Добавляем заголовки");
-            //работаем с первым листом добавляем заголовки
-            var excelworksheet = excelappworkbook.Worksheet(1);
+                // Put a value in a few cells
+                foreach (var r in Enumerable.Range(1, 5))
+                    foreach (var c in Enumerable.Range(1, 5))
+                        ws.Cell(r, c).Value = string.Format("R{0}C{1}", r, c);
 
-            excelworksheet.Row(1).Cell(15).Value = "Номер лицевого счета";
-            excelworksheet.Row(1).Cell(16).Value = "ID лицевого счета";
-            excelworksheet.Row(1).Cell(17).Value = "Наличие в списке";
+                var blueRow = ws.Rows(1, 2);
+                var redRow = ws.Row(5);
 
+                blueRow.Style.Fill.BackgroundColor = XLColor.Blue;
 
-            Console.WriteLine("Введите количество записей");
-            string reccount = Console.ReadLine();
-            Console.WriteLine("Записей: " + reccount);
-            Console.WriteLine("Проставляем ЛС...");
+                redRow.Style.Fill.BackgroundColor = XLColor.Red;
+                workbook.SaveAs(filePath);
+            }
+            #endregion
 
-            for (int i = 2; i <= Convert.ToInt32(reccount); i++)
+            #region Remove rows
+            {
+                var workbook = new XLWorkbook(filePath);
+                var ws = workbook.Worksheets.Worksheet("Delete red rows");
+
+                ws.Rows(1, 2).Delete();
+                workbook.Save();
+            }
+            #endregion*/
+
+            XLWorkbook xLWorkbook = new XLWorkbook();
+            log("Добавляем заголовки");
+
+            List<string> headerTable = new List<string>(); //получение заголовков
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1[2, i].Value != null)
+                {
+                    headerTable.Add(dataGridView1[2, i].Value.ToString());
+                }
+                else
+                {
+                    headerTable.Add(dataGridView1[1, i].Value.ToString());
+                }
+            }
+            //Добавляем лист "Выгрузка", добавляем заголовки
+            var excelworksheet = xLWorkbook.Worksheets.Add("Выгрузка");
+                        
+            for (int i=0; i<headerTable.Count;i++)
+            {
+                excelworksheet.Cell(1, i+1).Value = headerTable[i].ToString();
+            }
+
+            //Console.WriteLine("Записей: " + reccount);
+
+            /*for (int i = 2; i <= Convert.ToInt32(reccount); i++)
             {
                 Console.WriteLine((i - 1).ToString() + " Строка");
                 //if (excelworksheet.Cells[i, 10].Value.ToString().Contains(","))
@@ -299,7 +346,7 @@ namespace BD_to_EXCEL_form
                 //    // дополнительный метод для преобразования
                 //    string fds = id_ls_join(excelworksheet.Cells[i, 8].Value, excelworksheet.Cells[i, 10].Value, i);
                 //}
-
+            
                 cmd.CommandText = $@"select gr.croom_num, 
                 CASE WHEN ro.gis_gkh_guid is null THEN b4fa.house_guid::text
                 WHEN ro.gis_gkh_guid is not null THEN ro.gis_gkh_guid
@@ -312,42 +359,9 @@ namespace BD_to_EXCEL_form
                 where (b4fa.house_guid::text = '{excelworksheet.Row(i).Cell(8).Value}' and gr.croom_num = '{excelworksheet.Row(i).Cell(10).Value}') or (ro.gis_gkh_guid = '{excelworksheet.Row(i).Cell(8).Value}' and gr.croom_num = '{excelworksheet.Row(i).Cell(10).Value}')
                 group by 1,2";
                 ndr = cmd.ExecuteReader();
-
-
-                ndr.Read();
-                if (ndr.HasRows) // если есть данные
-                {
-                    //excelworksheet.Cells[2, 15].Value= ndr.GetValue(0);
-                    //Console.WriteLine(ndr.GetValue(0) + "////" + ndr.GetValue(1));
-                    excelworksheet.Row(i).Cell(15).Value = ndr.GetValue(2);
-                    excelworksheet.Row(i).Cell(16).Value = ndr.GetValue(3);
-                    if (id.Contains(ndr.GetValue(3).ToString()) && !ndr.GetValue(3).ToString().Contains(","))
-                    {
-                        excelworksheet.Row(i).Cell(17).Value = "Да";
-                    }
-                    else if (ndr.GetValue(3).ToString().Contains(","))
-                    {
-                        string[] subs = ndr.GetValue(3).ToString().Split(',');
-                        foreach (string sub in subs)
-                        {
-                            if (!ndr.GetValue(3).ToString().Contains(sub.Replace(" ", "")) && excelworksheet.Row(i).Cell(17).Value.ToString() != "Да")
-                            {
-                                excelworksheet.Row(i).Cell(17).Value = "Да";
-                            }
-                            else
-                            {
-                                excelworksheet.Row(i).Cell(17).Value = "Нет";
-                            }
-                        }
-                    }
-                    else
-                    {
-                        excelworksheet.Row(i).Cell(17).Value = "Нет";
-                    }
-                }
-                ndr.Close();
             }
-            Console.WriteLine("Сохраняем изменения");
+            Console.WriteLine("Сохраняем изменения");*/
+            xLWorkbook.SaveAs(filePath);
         }
 
         private void button5_Click(object sender, EventArgs e)
