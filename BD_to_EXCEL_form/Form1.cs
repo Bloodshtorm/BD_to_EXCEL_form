@@ -240,7 +240,7 @@ namespace BD_to_EXCEL_form
                                 //strok_csv += @"""" + temp_strok + @""";";
                                 strok_csv += temp_strok + @";";
                             }
-                            catch (System.InvalidCastException ice)
+                            catch (System.InvalidCastException)
                             {
                                 //log(ice.Message);
                                 //log("Вероятнее всего проблема с преобразованием даты \"infinity\"");
@@ -283,36 +283,6 @@ namespace BD_to_EXCEL_form
             Directory_data();
             log("Открытие файла excel");
             
-            /*#region Create case
-            {
-                var workbook = new XLWorkbook();
-                var ws = workbook.Worksheets.Add("Delete red rows");
-
-                // Put a value in a few cells
-                foreach (var r in Enumerable.Range(1, 5))
-                    foreach (var c in Enumerable.Range(1, 5))
-                        ws.Cell(r, c).Value = string.Format("R{0}C{1}", r, c);
-
-                var blueRow = ws.Rows(1, 2);
-                var redRow = ws.Row(5);
-
-                blueRow.Style.Fill.BackgroundColor = XLColor.Blue;
-
-                redRow.Style.Fill.BackgroundColor = XLColor.Red;
-                workbook.SaveAs(filePath);
-            }
-            #endregion
-
-            #region Remove rows
-            {
-                var workbook = new XLWorkbook(filePath);
-                var ws = workbook.Worksheets.Worksheet("Delete red rows");
-
-                ws.Rows(1, 2).Delete();
-                workbook.Save();
-            }
-            #endregion*/
-
             XLWorkbook xLWorkbook = new XLWorkbook();
             log("Добавляем заголовки");
 
@@ -330,12 +300,66 @@ namespace BD_to_EXCEL_form
             }
             //Добавляем лист "Выгрузка", добавляем заголовки
             var excelworksheet = xLWorkbook.Worksheets.Add("Выгрузка");
-                        
-            for (int i=0; i<headerTable.Count;i++)
-            {
-                excelworksheet.Cell(1, i+1).Value = headerTable[i].ToString();
-            }
 
+
+            NpgsqlCommand nc = new NpgsqlCommand(textBox3.Text, con);
+            NpgsqlDataReader ndr = nc.ExecuteReader();
+
+            string strok_csv = "";
+            try
+            {
+                for (int i = 0; i < headerTable.Count; i++)
+                {
+                    excelworksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LemonChiffon;
+                    excelworksheet.Columns(1, i + 1).AdjustToContents();
+                    excelworksheet.Cell(1, i + 1).Value = headerTable[i].ToString();
+                }
+
+                string temp_strok = "";
+                if (ndr.HasRows)
+                {
+                    int z = 2;
+                    while (ndr.Read())
+                    {
+                        for (int x = 0; x < ndr.FieldCount; x++)
+                        {
+                            try
+                            {
+                                temp_strok = ndr.GetValue(x).ToString().Replace(@"/n", "").Replace(@"/r", "");
+                                excelworksheet.Cell(z, x + 1).Value = temp_strok;
+                                //strok_csv += @"""" + temp_strok + @""";";
+                            }
+                            catch (System.InvalidCastException)
+                            {
+                                //log(ice.Message);
+                                //log("Вероятнее всего проблема с преобразованием даты \"infinity\"");
+                                excelworksheet.Cell(z, x + 1).Value = "infinity";
+                            }
+
+                        }
+                        //file.WriteLine(strok_csv);
+                        z++;
+                    }
+                }
+                else
+                {
+                    log("Не обнаружены строки для записи в csv");
+                }
+                log("Генерация csv файла, запись данных: ГОТОВО");
+                //file.Close();
+                //ndr.Close();
+                //con.Dispose();
+            }
+            catch (Exception ex)
+            {
+                log(ex.Message);
+            }
+            finally
+            {
+                ndr.Close();
+                //if (con.State == ConnectionState.Open)con.Close();
+                // con.Dispose();
+            }
             //Console.WriteLine("Записей: " + reccount);
 
             /*for (int i = 2; i <= Convert.ToInt32(reccount); i++)
