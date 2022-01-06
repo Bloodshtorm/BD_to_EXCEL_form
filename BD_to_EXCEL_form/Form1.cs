@@ -13,6 +13,7 @@ using System.Reflection;
 using Npgsql;
 using DocumentFormat.OpenXml;
 using ClosedXML.Excel;
+using DotNetDBF;
 
 namespace BD_to_EXCEL_form
 {
@@ -27,7 +28,7 @@ namespace BD_to_EXCEL_form
         {
             InitializeComponent();
             //textBox1.Text = "Server=172.153.153.46;Port=5432;Database=gkh_chelyabinsk;User ID=bars;Password=bars;CommandTimeout=2000000;";
-            textBox1.Text = "Server=192.168.1.51;Database=gkh_chelyabinsk;UserID=postgres;Password=1234;CommandTimeout=2000000;";
+            textBox1.Text = "Server=localhost;Database=irteh;UserID=postgres;Password=root;CommandTimeout=2000000;";
             Dict_read();
             Servers_read();
             //для теста потом снести
@@ -305,7 +306,7 @@ namespace BD_to_EXCEL_form
             NpgsqlCommand nc = new NpgsqlCommand(textBox3.Text, con);
             NpgsqlDataReader ndr = nc.ExecuteReader();
 
-            string strok_csv = "";
+            //string strok_csv = "";
             try
             {
                 for (int i = 0; i < headerTable.Count; i++)
@@ -489,6 +490,105 @@ namespace BD_to_EXCEL_form
         {
             DateTime thisDay = DateTime.Today;
             return thisDay.ToString("dd-MM-yyyy");
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                string dataname = date();
+                using (Stream fos = File.Open(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + dataname + ".dbf", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (var writer = new DBFWriter())
+                {
+                    writer.CharEncoding = Encoding.GetEncoding(866);
+                    //writer.Signature = DBFSigniture.DBase3;
+                    writer.LanguageDriver = 0x26; // кодировка 866
+                    
+
+                    var field1 = new DBFField("Id", NativeDbType.Long);
+                    var field2 = new DBFField("DATE", NativeDbType.Date, );
+                    var field3 = new DBFField("POSNAME", NativeDbType.Long);
+                    var field4 = new DBFField("POSCODE", NativeDbType.Long);
+
+                    writer.Fields = new[] {field1, field2, field3, field4};
+                    writer.AddRecord("1", "2021-10-20", "тест1", "тест2");
+                    /*foreach (var item in items)
+                    {
+                        writer.AddRecord(
+                            // добавляем поля в набор
+                            );
+                    }*/
+                    writer.Write(fos);
+                }
+            }
+            catch (Exception ex)
+            {
+                log(ex.Message);
+            }
+            finally
+            {
+                //ndr.Close();
+                //if (con.State == ConnectionState.Open)con.Close();
+                // con.Dispose();
+            }
+            /*
+            try
+            {
+                strok_csv = "";
+                foreach (string s in headerTable)
+                {
+                    strok_csv += @"""" + s.ToString() + @""";";
+                }
+                log("Заполняем заголовки");
+                file.WriteLine(strok_csv);
+
+                string temp_strok = "";
+                if (ndr.HasRows)
+                {
+                    while (ndr.Read())
+                    {
+                        strok_csv = "";
+                        for (int x = 0; x < ndr.FieldCount; x++)
+                        {
+                            try
+                            {
+                                temp_strok = ndr.GetValue(x).ToString().Replace(@"/n", "").Replace(@"/r", "");
+                                //strok_csv += @"""" + temp_strok + @""";";
+                                strok_csv += temp_strok + @";";
+                            }
+                            catch (System.InvalidCastException)
+                            {
+                                //log(ice.Message);
+                                //log("Вероятнее всего проблема с преобразованием даты \"infinity\"");
+                                temp_strok = "infinity";
+                                //strok_csv += @"""" + temp_strok + @""";";
+                                strok_csv += temp_strok + @";";
+                            }
+
+                        }
+                        file.WriteLine(strok_csv);
+                    }
+                }
+                else
+                {
+                    log("Не обнаружены строки для записи в csv");
+                }
+                log("Генерация csv файла, запись данных: ГОТОВО");
+                //file.Close();
+                //ndr.Close();
+                //con.Dispose();
+            }
+            catch (Exception ex)
+            {
+                log(ex.Message);
+            }
+            finally
+            {
+                ndr.Close();
+                file.Close();
+                //if (con.State == ConnectionState.Open)con.Close();
+                // con.Dispose();
+            }*/
         }
     }
 }
