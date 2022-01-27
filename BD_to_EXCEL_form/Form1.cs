@@ -555,7 +555,8 @@ namespace BD_to_EXCEL_form
                 fn.CopyTo(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\SHABLON1.dbf", true);
                 conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + ";Extended Properties=dBASE IV;User ID=Admin;";
                 conn.Open();
-                comm.CommandText = "INSERT INTO SHABLON1 VALUES('34','03.03.3333 00:00:00')";
+                comm.CommandText = "INSERT INTO NEW VALUES('test','test', 'test','test','test','test','test','test','test','t','1','test','test','test','test','1','1','test','test','1','1','test','1','1','1','1','1','1','1','1','1','test','test','test','test','test','test','test','test')";
+                
                 //comm.CommandText = "INSERT INTO SHABLON VALUES('34','Региональный','6806','Октябрьское','с','ул','Ленина','57','','12','2018','8','капитальный ремонт','капитальный ремонт','кв.м',7.400,23.02,123.20,6563.54,6663.25,5305.40,3)";
                 comm.ExecuteNonQuery();
                 /*while (selDt.Rows[i][0].ToString() == mainDt.Rows[ji][0].ToString())
