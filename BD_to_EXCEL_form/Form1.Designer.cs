@@ -46,8 +46,10 @@ namespace BD_to_EXCEL_form
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.dBFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -55,7 +57,7 @@ namespace BD_to_EXCEL_form
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(12, 45);
+            this.textBox1.Location = new System.Drawing.Point(12, 67);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(1128, 22);
             this.textBox1.TabIndex = 0;
@@ -63,9 +65,9 @@ namespace BD_to_EXCEL_form
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(1091, 10);
+            this.button2.Location = new System.Drawing.Point(1091, 32);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(172, 27);
+            this.button2.Size = new System.Drawing.Size(172, 28);
             this.button2.TabIndex = 2;
             this.button2.Text = "Подключиться!";
             this.button2.UseVisualStyleBackColor = true;
@@ -81,11 +83,11 @@ namespace BD_to_EXCEL_form
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Font = new System.Drawing.Font("Microsoft Tai Le", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(839, 73);
+            this.textBox2.Location = new System.Drawing.Point(839, 96);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(424, 500);
+            this.textBox2.Size = new System.Drawing.Size(424, 518);
             this.textBox2.TabIndex = 3;
             this.textBox2.VisibleChanged += new System.EventHandler(this.textBox2_VisibleChanged);
             // 
@@ -99,9 +101,9 @@ namespace BD_to_EXCEL_form
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 71);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 94);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(410, 502);
+            this.dataGridView1.Size = new System.Drawing.Size(410, 520);
             this.dataGridView1.TabIndex = 4;
             // 
             // Column1
@@ -131,7 +133,7 @@ namespace BD_to_EXCEL_form
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(14, 579);
+            this.button3.Location = new System.Drawing.Point(14, 618);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(166, 24);
             this.button3.TabIndex = 5;
@@ -145,18 +147,18 @@ namespace BD_to_EXCEL_form
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(428, 71);
+            this.textBox3.Location = new System.Drawing.Point(428, 94);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(405, 502);
+            this.textBox3.Size = new System.Drawing.Size(405, 520);
             this.textBox3.TabIndex = 6;
             // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button4.Enabled = false;
-            this.button4.Location = new System.Drawing.Point(186, 579);
+            this.button4.Location = new System.Drawing.Point(186, 618);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(198, 24);
             this.button4.TabIndex = 7;
@@ -168,7 +170,7 @@ namespace BD_to_EXCEL_form
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(1069, 579);
+            this.button5.Location = new System.Drawing.Point(1069, 618);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(86, 24);
             this.button5.TabIndex = 8;
@@ -180,7 +182,7 @@ namespace BD_to_EXCEL_form
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button6.Enabled = false;
-            this.button6.Location = new System.Drawing.Point(1161, 579);
+            this.button6.Location = new System.Drawing.Point(1161, 618);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(105, 24);
             this.button6.TabIndex = 9;
@@ -191,7 +193,7 @@ namespace BD_to_EXCEL_form
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 13);
+            this.comboBox1.Location = new System.Drawing.Point(12, 35);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(1075, 21);
             this.comboBox1.TabIndex = 10;
@@ -201,7 +203,7 @@ namespace BD_to_EXCEL_form
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(14, 605);
+            this.progressBar1.Location = new System.Drawing.Point(14, 644);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(1251, 5);
             this.progressBar1.TabIndex = 12;
@@ -209,7 +211,7 @@ namespace BD_to_EXCEL_form
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button7.Location = new System.Drawing.Point(390, 579);
+            this.button7.Location = new System.Drawing.Point(390, 618);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(213, 24);
             this.button7.TabIndex = 13;
@@ -220,31 +222,36 @@ namespace BD_to_EXCEL_form
             // button8
             // 
             this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(1146, 45);
+            this.button8.Location = new System.Drawing.Point(1146, 67);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(116, 22);
+            this.button8.Size = new System.Drawing.Size(116, 23);
             this.button8.TabIndex = 14;
             this.button8.Text = "Сброс соединения";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // button1
+            // menuStrip1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(977, 579);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 24);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Import to dbf";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dBFToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1275, 24);
+            this.menuStrip1.TabIndex = 16;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // dBFToolStripMenuItem
+            // 
+            this.dBFToolStripMenuItem.Name = "dBFToolStripMenuItem";
+            this.dBFToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.dBFToolStripMenuItem.Text = "DBF";
+            this.dBFToolStripMenuItem.Click += new System.EventHandler(this.dBFToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1275, 614);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1275, 653);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.progressBar1);
@@ -258,10 +265,14 @@ namespace BD_to_EXCEL_form
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,7 +297,8 @@ namespace BD_to_EXCEL_form
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem dBFToolStripMenuItem;
     }
 }
 
