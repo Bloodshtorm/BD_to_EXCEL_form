@@ -121,4 +121,7 @@
   <data name="New" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Data\New.dbf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Запрос_по_регопу_челябинск1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Запрос по регопу челябинск1.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

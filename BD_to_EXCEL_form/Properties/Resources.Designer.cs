@@ -69,5 +69,20 @@ namespace BD_to_EXCEL_form.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 
+        ///                                drop table if exists temp_tariff_dbf;
+        ///                                create temp table temp_tariff_dbf as
+        ///                                (select * from public.z_get_tariff(3893));
+        ///                                select unified_acc_num &quot;UNIFIED_AC&quot;,rpa.acc_num &quot;ACC_NUMBER&quot;, own.name &quot;OWNER&quot;, gdm.name &quot;MU&quot;,
+        ///                                (select shortname from b4_fias where aoguid = b4fa.place_guid limit 1)::Char(10) &quot;KINDSITY&quot;,
+        ///                                SUBSTRI [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string Запрос_по_регопу_челябинск1 {
+            get {
+                return ResourceManager.GetString("Запрос_по_регопу_челябинск1", resourceCulture);
+            }
+        }
     }
 }
