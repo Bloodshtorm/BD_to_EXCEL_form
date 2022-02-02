@@ -50,7 +50,7 @@ namespace BD_to_EXCEL_form
             NpgsqlDataAdapter sda = new NpgsqlDataAdapter($@"
                                 drop table if exists temp_tariff_dbf;
                                 create temp table temp_tariff_dbf as
-                                (select * from public.z_get_tariff(3893));
+                                (select * from public.z_get_tariff({ID_period}));
                                 
                                 select 
                                 unified_acc_num {quote}UNIFIED_AC{quote},rpa.acc_num {quote}ACC_NUMBER{quote}, own.name {quote}OWNER{quote}, gdm.name {quote}MU{quote},
@@ -90,7 +90,7 @@ namespace BD_to_EXCEL_form
                                 join gkh_dict_municipality gdm on ro.municipality_id = gdm.id
                                 join b4_fias_address b4fa on b4fa.id = ro.fias_address_id
                                 join b4_fias b4f on b4f.aoguid = b4fa.street_guid and b4f.actstatus = 1
-                                where psum.period_id = 1608 order by 3 limit 10", Form1.con);
+                                where psum.period_id = {ID_period} order by 3 limit 3", Form1.con);
             sda.Fill(selDt);
             label2.Text="Количество записей: " + selDt.Rows.Count.ToString();
             string insert_str = "";
@@ -111,24 +111,25 @@ namespace BD_to_EXCEL_form
             conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + ";Extended Properties=dBASE IV;User ID=Admin;";
             //comm.CommandText = "INSERT INTO NEW VALUES('test','test', 'test','test','test','test','test','test','test','t','1','test','test','test','test','1','1','test','test','1','1','test','1','1','1','1','1','1','1','1','1','test','test','test','test','test','test','test','test')";
             conn.Open();
-            for (int i = 0; i < selDt.Rows.Count + 1; i++)
+            for (int i = 0; i < selDt.Rows.Count ; i++)
             {
-                for (int j = 0; j < selDt.Columns.Count; j++)
+                /*for (int j = 0; j < selDt.Columns.Count; j++)
                 {
                     insert_str += $"'{selDt.Rows[i][j].ToString().Trim()}',";
-                }
+                }*/
                 //comm.CommandText = "INSERT INTO NEW VALUES({insert_str.Remove(insert_str.Length-1)})";
-                
-                comm.CommandText = $@"INSERT INTO NEW VALUES(
-                        '{selDt.Rows[i][0]}','{selDt.Rows[i][1]}', '{selDt.Rows[i][2]}','{selDt.Rows[i][3]}','{selDt.Rows[i][4]}','{selDt.Rows[i][5]}',
-                        '{selDt.Rows[i][6]}','{selDt.Rows[i][7]}','{selDt.Rows[i][8]}','{selDt.Rows[i][9]}','{selDt.Rows[i][10].ToString().Replace(",",".")}','{selDt.Rows[i][11]}',
+                //var a = selDt.Rows[i][0];
+                comm.CommandText = $"INSERT INTO NEW VALUES('{selDt.Rows[i][0]}','test', 'test','test','test','test','test','test','test','t','1','test','test','test','test','1','1','test','test','1','1','test','1','1','1','1','1','1','1','1','1','test','test','test','test','test','test','test','test')";
+                /*comm.CommandText = $@"INSERT INTO NEW VALUES(
+                        '{selDt.Rows[i][0]}','{selDt.Rows[i][1]}', '{selDt.Rows[i][2]}','{selDt.Rows[i][3]}','{selDt.Rows[i][4].ToString().Replace(" ", "")}','{selDt.Rows[i][5].ToString().Replace(" ", "")}',
+                        '{selDt.Rows[i][6]}','{selDt.Rows[i][7]}','{selDt.Rows[i][8]}','{selDt.Rows[i][9]}','2','{selDt.Rows[i][11]}',
                         '{selDt.Rows[i][12]}','{selDt.Rows[i][13]}','{selDt.Rows[i][14]}','{selDt.Rows[i][15].ToString().Replace(",", ".")}','{selDt.Rows[i][16].ToString().Replace(",",".")}',
                         '{selDt.Rows[i][17]}','{selDt.Rows[i][18]}','{selDt.Rows[i][19].ToString().Replace(",", ".")}','{selDt.Rows[i][20].ToString().Replace(",", ".")}','{selDt.Rows[i][21]}',
                         '{selDt.Rows[i][22].ToString().Replace(",", ".")}','{selDt.Rows[i][23].ToString().Replace(",", ".")}','{selDt.Rows[i][24].ToString().Replace(",", ".")}',
                         '{selDt.Rows[i][25].ToString().Replace(",", ".")}','{selDt.Rows[i][26].ToString().Replace(",", ".")}','{selDt.Rows[i][27].ToString().Replace(",", ".")}',
                         '{selDt.Rows[i][28].ToString().Replace(",", ".")}','{selDt.Rows[i][29].ToString().Replace(",", ".")}','{selDt.Rows[i][30].ToString().Replace(",", ".")}',
                         '{selDt.Rows[i][31]}','{selDt.Rows[i][32]}','{selDt.Rows[i][33]}','{selDt.Rows[i][34]}','{selDt.Rows[i][35]}',
-                        '{selDt.Rows[i][36]}','{selDt.Rows[i][37]}','{selDt.Rows[i][38]}')";
+                        '{selDt.Rows[i][36]}','{selDt.Rows[i][37]}','{selDt.Rows[i][38]}')";*/
 
 
                 comm.ExecuteNonQuery();

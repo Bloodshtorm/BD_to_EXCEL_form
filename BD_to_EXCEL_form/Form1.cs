@@ -29,7 +29,7 @@ namespace BD_to_EXCEL_form
         {
             InitializeComponent();
             //textBox1.Text = "Server=172.153.153.46;Port=5432;Database=gkh_chelyabinsk;User ID=bars;Password=bars;CommandTimeout=2000000;";
-            textBox1.Text = "Server=localhost;Database=irteh;UserID=postgres;Password=root;CommandTimeout=2000000;";
+            textBox1.Text = "Server=192.168.1.51;Database=gkh_chelyabinsk;UserID=postgres;Password=1234;CommandTimeout=2000000;";
             Dict_read();
             Servers_read();
             //для теста потом снести
