@@ -111,7 +111,7 @@ namespace BD_to_EXCEL_form
             conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Application.StartupPath + ";Extended Properties=dBASE IV;User ID=Admin;";
             //comm.CommandText = "INSERT INTO NEW VALUES('test','test', 'test','test','test','test','test','test','test','t','1','test','test','test','test','1','1','test','test','1','1','test','1','1','1','1','1','1','1','1','1','test','test','test','test','test','test','test','test')";
             conn.Open();
-            for (int i = 0; i < selDt.Rows.Count ; i++)
+            for (int i = 0; i < selDt.Rows.Count; i++)
             {
                 /*for (int j = 0; j < selDt.Columns.Count; j++)
                 {
